@@ -11,12 +11,6 @@ using TestTaskForNetDeveloperPosition.Bll.Contract;
 
 namespace TestTaskForNetDeveloperPosition.Controllers
 {
-    // В начале идея была определить карту сайта через robots.txt к примеру: https://docs.microsoft.com/robots.txt 
-    // и уже в данном файле найти Sitemap.xml 
-    // не немного времени прогулки по сайтам пришел к выводу что не все сайты указывают ссылку на Sitemap примером был этот сайт https://elmir.ua/robots.txt
-    // а если я не смогу определить карту сайта то не чего не смогу ввыести пользователю на его запрос
-    // тестовое задание очен понравилось ! Спасибо! 
-    // Если не затруднит сможете сделать отзыв по коду и прислать на почту vetalvasilenko@gmail.com
 
     public class HomeController : Controller
     {
