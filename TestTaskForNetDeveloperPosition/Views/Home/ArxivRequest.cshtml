@@ -1,0 +1,50 @@
+﻿@model IEnumerable<TestTaskForNetDeveloperPosition.ArchiveOfRequests>
+
+@{
+    ViewBag.Title = "ArxivRequest";
+}
+
+<div class="row">
+    <div class="col-12">
+    
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h5>ArxivRequest</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <div class="table-responsive">
+        
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NameUrl)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NameUrl)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Result", "UserQueryResult", new { id = item.IdArchiveOfRequests }) |
+                                    @Html.ActionLink("Arxiv", "ArxivDetails", new { id = item.IdArchiveOfRequests })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

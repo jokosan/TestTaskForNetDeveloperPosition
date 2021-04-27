@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище TestTaskForNetDeveloperPositionModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ArchiveOfRequests">
+    <Key>
+      <PropertyRef Name="IdArchiveOfRequests" />
+    </Key>
+    <Property Name="IdArchiveOfRequests" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameUrl" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="PageInfo">
+    <Key>
+      <PropertyRef Name="IdPageInfo" />
+    </Key>
+    <Property Name="IdPageInfo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SitemapId" Type="int" />
+    <Property Name="WebsiteLoadingSpeed" Type="bigint" />
+    <Property Name="StatusCode" Type="int" />
+    <Property Name="PageTestDate" Type="datetime2" Precision="7" />
+    <Property Name="LastModified" Type="datetime2" Precision="7" />
+    <Property Name="Elapsed" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UrlSiteMap">
+    <Key>
+      <PropertyRef Name="IdSitemap" />
+    </Key>
+    <Property Name="IdSitemap" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArchiveOfRequestsId" Type="int" />
+    <Property Name="NameSite" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_UrlSiteMap_ArchiveOfRequests">
+    <End Role="ArchiveOfRequests" Type="Self.ArchiveOfRequests" Multiplicity="0..1" />
+    <End Role="UrlSiteMap" Type="Self.UrlSiteMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchiveOfRequests">
+        <PropertyRef Name="IdArchiveOfRequests" />
+      </Principal>
+      <Dependent Role="UrlSiteMap">
+        <PropertyRef Name="ArchiveOfRequestsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище TestTaskForNetDeveloperPositionModelContainer">
+    <EntitySet Name="ArchiveOfRequests" EntityType="Self.ArchiveOfRequests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PageInfo" EntityType="Self.PageInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UrlSiteMap" EntityType="Self.UrlSiteMap" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_UrlSiteMap_ArchiveOfRequests" Association="Self.FK_UrlSiteMap_ArchiveOfRequests">
+      <End Role="ArchiveOfRequests" EntitySet="ArchiveOfRequests" />
+      <End Role="UrlSiteMap" EntitySet="UrlSiteMap" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

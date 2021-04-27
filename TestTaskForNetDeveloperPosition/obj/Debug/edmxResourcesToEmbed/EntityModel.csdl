@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestTaskForNetDeveloperPositionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ArchiveOfRequests">
+    <Key>
+      <PropertyRef Name="IdArchiveOfRequests" />
+    </Key>
+    <Property Name="IdArchiveOfRequests" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Sitemap" Relationship="Self.FK_Sitemap_ArchiveOfRequests" FromRole="ArchiveOfRequests" ToRole="Sitemap" />
+  </EntityType>
+  <EntityType Name="PageInfo">
+    <Key>
+      <PropertyRef Name="IdPageInfo" />
+    </Key>
+    <Property Name="IdPageInfo" Type="Int32" Nullable="false" />
+    <Property Name="SitemapId" Type="Int32" />
+    <Property Name="WebsiteLoadingSpeed" Type="Int64" />
+    <Property Name="StatusCode" Type="Int32" />
+    <Property Name="PageTestDate" Type="DateTime" Precision="7" />
+    <Property Name="LastModified" Type="DateTime" Precision="7" />
+    <Property Name="Elapsed" Type="Time" Precision="7" />
+    <NavigationProperty Name="Sitemap" Relationship="Self.FK_PageInfo_Sitemap" FromRole="PageInfo" ToRole="Sitemap" />
+  </EntityType>
+  <EntityType Name="Sitemap">
+    <Key>
+      <PropertyRef Name="IdSitemap" />
+    </Key>
+    <Property Name="IdSitemap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArchiveOfRequestsId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ArchiveOfRequests" Relationship="Self.FK_Sitemap_ArchiveOfRequests" FromRole="Sitemap" ToRole="ArchiveOfRequests" />
+    <NavigationProperty Name="PageInfo" Relationship="Self.FK_PageInfo_Sitemap" FromRole="Sitemap" ToRole="PageInfo" />
+  </EntityType>
+  <Association Name="FK_Sitemap_ArchiveOfRequests">
+    <End Role="ArchiveOfRequests" Type="Self.ArchiveOfRequests" Multiplicity="1" />
+    <End Role="Sitemap" Type="Self.Sitemap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchiveOfRequests">
+        <PropertyRef Name="IdArchiveOfRequests" />
+      </Principal>
+      <Dependent Role="Sitemap">
+        <PropertyRef Name="ArchiveOfRequestsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PageInfo_Sitemap">
+    <End Role="Sitemap" Type="Self.Sitemap" Multiplicity="0..1" />
+    <End Role="PageInfo" Type="Self.PageInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sitemap">
+        <PropertyRef Name="IdSitemap" />
+      </Principal>
+      <Dependent Role="PageInfo">
+        <PropertyRef Name="SitemapId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestTaskForNetDeveloperPositionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ArchiveOfRequests" EntityType="Self.ArchiveOfRequests" />
+    <EntitySet Name="PageInfo" EntityType="Self.PageInfo" />
+    <EntitySet Name="Sitemap" EntityType="Self.Sitemap" />
+    <AssociationSet Name="FK_Sitemap_ArchiveOfRequests" Association="Self.FK_Sitemap_ArchiveOfRequests">
+      <End Role="ArchiveOfRequests" EntitySet="ArchiveOfRequests" />
+      <End Role="Sitemap" EntitySet="Sitemap" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PageInfo_Sitemap" Association="Self.FK_PageInfo_Sitemap">
+      <End Role="Sitemap" EntitySet="Sitemap" />
+      <End Role="PageInfo" EntitySet="PageInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

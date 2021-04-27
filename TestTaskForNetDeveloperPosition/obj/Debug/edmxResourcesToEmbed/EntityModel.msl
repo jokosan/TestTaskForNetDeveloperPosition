@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище TestTaskForNetDeveloperPositionModelContainer" CdmEntityContainer="TestTaskForNetDeveloperPositionEntities">
+    <EntitySetMapping Name="ArchiveOfRequests">
+      <EntityTypeMapping TypeName="TestTaskForNetDeveloperPositionModel.ArchiveOfRequests">
+        <MappingFragment StoreEntitySet="ArchiveOfRequests">
+          <ScalarProperty Name="IdArchiveOfRequests" ColumnName="IdArchiveOfRequests" />
+          <ScalarProperty Name="NameUrl" ColumnName="NameUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PageInfo">
+      <EntityTypeMapping TypeName="TestTaskForNetDeveloperPositionModel.PageInfo">
+        <MappingFragment StoreEntitySet="PageInfo">
+          <ScalarProperty Name="IdPageInfo" ColumnName="IdPageInfo" />
+          <ScalarProperty Name="SitemapId" ColumnName="SitemapId" />
+          <ScalarProperty Name="WebsiteLoadingSpeed" ColumnName="WebsiteLoadingSpeed" />
+          <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+          <ScalarProperty Name="PageTestDate" ColumnName="PageTestDate" />
+          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+          <ScalarProperty Name="Elapsed" ColumnName="Elapsed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sitemap">
+      <EntityTypeMapping TypeName="TestTaskForNetDeveloperPositionModel.Sitemap">
+        <MappingFragment StoreEntitySet="Sitemap">
+          <ScalarProperty Name="IdSitemap" ColumnName="IdSitemap" />
+          <ScalarProperty Name="ArchiveOfRequestsId" ColumnName="ArchiveOfRequestsId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

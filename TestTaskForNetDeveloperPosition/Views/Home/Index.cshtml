@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@using (Html.BeginForm("UrlPages", "Home", FormMethod.Get, new { enctype = "multipart/form-data" }))
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center" id="group">
+                            <h5>Выберите количество ссылок для карты сайта</h5>
+                            <hr />
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="numberOfLinks" value="50">
+                                <label class="form-check-label" for="inlineCheckbox1">50</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="numberOfLinks" value="100">
+                                <label class="form-check-label" for="inlineCheckbox2">100</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="numberOfLinks" value="500">
+                                <label class="form-check-label" for="inlineCheckbox3">500</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="numberOfLinks" value="1000">
+                                <label class="form-check-label" for="inlineCheckbox3">1000</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="numberOfLinks" value="1500">
+                                <label class="form-check-label" for="inlineCheckbox3">1500</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="numberOfLinks" value="2000">
+                                <label class="form-check-label" for="inlineCheckbox3">2000</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="numberOfLinks" value="5000">
+                                <label class="form-check-label" for="inlineCheckbox3">5000</label>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="col-sm-3 text-right control-label col-form-label">
+                                    Your vanity URL
+                                </label>
+                                <div class="col-md-7">
+                                    <input type="text" name="url" class="form-control" placeholder="example: https://medium.com/">
+                                </div>
+
+                                <input class="btn btn-primary mb-2" value="Button" type="submit" />
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $('#group input:checkbox').click(function () {
+        if ($(this).is(':checked')) {
+            $('#group input:checkbox').not(this).prop('checked', false);
+        }
+    });
+</script>

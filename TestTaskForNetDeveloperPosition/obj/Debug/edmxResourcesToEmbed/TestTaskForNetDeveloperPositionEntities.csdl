@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestTaskForNetDeveloperPositionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ArchiveOfRequests">
+    <Key>
+      <PropertyRef Name="IdArchiveOfRequests" />
+    </Key>
+    <Property Name="IdArchiveOfRequests" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UrlSiteMap" Relationship="Self.FK_UrlSiteMap_ArchiveOfRequests" FromRole="ArchiveOfRequests" ToRole="UrlSiteMap" />
+  </EntityType>
+  <EntityType Name="PageInfo">
+    <Key>
+      <PropertyRef Name="IdPageInfo" />
+    </Key>
+    <Property Name="IdPageInfo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SitemapId" Type="Int32" />
+    <Property Name="WebsiteLoadingSpeed" Type="Int64" />
+    <Property Name="StatusCode" Type="Int32" />
+    <Property Name="PageTestDate" Type="DateTime" Precision="7" />
+    <Property Name="LastModified" Type="DateTime" Precision="7" />
+    <Property Name="Elapsed" Type="Time" Precision="7" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UrlSiteMap">
+    <Key>
+      <PropertyRef Name="IdSitemap" />
+    </Key>
+    <Property Name="IdSitemap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArchiveOfRequestsId" Type="Int32" />
+    <Property Name="NameSite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ArchiveOfRequests" Relationship="Self.FK_UrlSiteMap_ArchiveOfRequests" FromRole="UrlSiteMap" ToRole="ArchiveOfRequests" />
+  </EntityType>
+  <Association Name="FK_UrlSiteMap_ArchiveOfRequests">
+    <End Role="ArchiveOfRequests" Type="Self.ArchiveOfRequests" Multiplicity="0..1" />
+    <End Role="UrlSiteMap" Type="Self.UrlSiteMap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArchiveOfRequests">
+        <PropertyRef Name="IdArchiveOfRequests" />
+      </Principal>
+      <Dependent Role="UrlSiteMap">
+        <PropertyRef Name="ArchiveOfRequestsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TestTaskForNetDeveloperPositionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ArchiveOfRequests" EntityType="Self.ArchiveOfRequests" />
+    <EntitySet Name="PageInfo" EntityType="Self.PageInfo" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="UrlSiteMap" EntityType="Self.UrlSiteMap" />
+    <AssociationSet Name="FK_UrlSiteMap_ArchiveOfRequests" Association="Self.FK_UrlSiteMap_ArchiveOfRequests">
+      <End Role="ArchiveOfRequests" EntitySet="ArchiveOfRequests" />
+      <End Role="UrlSiteMap" EntitySet="UrlSiteMap" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

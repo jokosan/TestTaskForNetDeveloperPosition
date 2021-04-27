@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище TestTaskForNetDeveloperPositionModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ArchiveOfRequests">
+          <Key>
+            <PropertyRef Name="IdArchiveOfRequests" />
+          </Key>
+          <Property Name="IdArchiveOfRequests" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameUrl" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PageInfo">
+          <Key>
+            <PropertyRef Name="IdPageInfo" />
+          </Key>
+          <Property Name="IdPageInfo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SitemapId" Type="int" />
+          <Property Name="WebsiteLoadingSpeed" Type="bigint" />
+          <Property Name="StatusCode" Type="int" />
+          <Property Name="PageTestDate" Type="datetime2" Precision="7" />
+          <Property Name="LastModified" Type="datetime2" Precision="7" />
+          <Property Name="Elapsed" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UrlSiteMap">
+          <Key>
+            <PropertyRef Name="IdSitemap" />
+          </Key>
+          <Property Name="IdSitemap" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArchiveOfRequestsId" Type="int" />
+          <Property Name="NameSite" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_UrlSiteMap_ArchiveOfRequests">
+          <End Role="ArchiveOfRequests" Type="Self.ArchiveOfRequests" Multiplicity="0..1" />
+          <End Role="UrlSiteMap" Type="Self.UrlSiteMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArchiveOfRequests">
+              <PropertyRef Name="IdArchiveOfRequests" />
+            </Principal>
+            <Dependent Role="UrlSiteMap">
+              <PropertyRef Name="ArchiveOfRequestsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище TestTaskForNetDeveloperPositionModelContainer">
+          <EntitySet Name="ArchiveOfRequests" EntityType="Self.ArchiveOfRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PageInfo" EntityType="Self.PageInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrlSiteMap" EntityType="Self.UrlSiteMap" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UrlSiteMap_ArchiveOfRequests" Association="Self.FK_UrlSiteMap_ArchiveOfRequests">
+            <End Role="ArchiveOfRequests" EntitySet="ArchiveOfRequests" />
+            <End Role="UrlSiteMap" EntitySet="UrlSiteMap" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestTaskForNetDeveloperPositionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ArchiveOfRequests">
+          <Key>
+            <PropertyRef Name="IdArchiveOfRequests" />
+          </Key>
+          <Property Name="IdArchiveOfRequests" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UrlSiteMap" Relationship="Self.FK_UrlSiteMap_ArchiveOfRequests" FromRole="ArchiveOfRequests" ToRole="UrlSiteMap" />
+        </EntityType>
+        <EntityType Name="PageInfo">
+          <Key>
+            <PropertyRef Name="IdPageInfo" />
+          </Key>
+          <Property Name="IdPageInfo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SitemapId" Type="Int32" />
+          <Property Name="WebsiteLoadingSpeed" Type="Int64" />
+          <Property Name="StatusCode" Type="Int32" />
+          <Property Name="PageTestDate" Type="DateTime" Precision="7" />
+          <Property Name="LastModified" Type="DateTime" Precision="7" />
+          <Property Name="Elapsed" Type="Time" Precision="7" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UrlSiteMap">
+          <Key>
+            <PropertyRef Name="IdSitemap" />
+          </Key>
+          <Property Name="IdSitemap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArchiveOfRequestsId" Type="Int32" />
+          <Property Name="NameSite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ArchiveOfRequests" Relationship="Self.FK_UrlSiteMap_ArchiveOfRequests" FromRole="UrlSiteMap" ToRole="ArchiveOfRequests" />
+        </EntityType>
+        <Association Name="FK_UrlSiteMap_ArchiveOfRequests">
+          <End Role="ArchiveOfRequests" Type="Self.ArchiveOfRequests" Multiplicity="0..1" />
+          <End Role="UrlSiteMap" Type="Self.UrlSiteMap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArchiveOfRequests">
+              <PropertyRef Name="IdArchiveOfRequests" />
+            </Principal>
+            <Dependent Role="UrlSiteMap">
+              <PropertyRef Name="ArchiveOfRequestsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestTaskForNetDeveloperPositionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ArchiveOfRequests" EntityType="Self.ArchiveOfRequests" />
+          <EntitySet Name="PageInfo" EntityType="Self.PageInfo" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="UrlSiteMap" EntityType="Self.UrlSiteMap" />
+          <AssociationSet Name="FK_UrlSiteMap_ArchiveOfRequests" Association="Self.FK_UrlSiteMap_ArchiveOfRequests">
+            <End Role="ArchiveOfRequests" EntitySet="ArchiveOfRequests" />
+            <End Role="UrlSiteMap" EntitySet="UrlSiteMap" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TestTaskForNetDeveloperPositionModelContainer" CdmEntityContainer="TestTaskForNetDeveloperPositionEntities">
+          <EntitySetMapping Name="ArchiveOfRequests">
+            <EntityTypeMapping TypeName="TestTaskForNetDeveloperPositionModel.ArchiveOfRequests">
+              <MappingFragment StoreEntitySet="ArchiveOfRequests">
+                <ScalarProperty Name="IdArchiveOfRequests" ColumnName="IdArchiveOfRequests" />
+                <ScalarProperty Name="NameUrl" ColumnName="NameUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PageInfo">
+            <EntityTypeMapping TypeName="TestTaskForNetDeveloperPositionModel.PageInfo">
+              <MappingFragment StoreEntitySet="PageInfo">
+                <ScalarProperty Name="IdPageInfo" ColumnName="IdPageInfo" />
+                <ScalarProperty Name="SitemapId" ColumnName="SitemapId" />
+                <ScalarProperty Name="WebsiteLoadingSpeed" ColumnName="WebsiteLoadingSpeed" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="PageTestDate" ColumnName="PageTestDate" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="Elapsed" ColumnName="Elapsed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TestTaskForNetDeveloperPositionModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrlSiteMap">
+            <EntityTypeMapping TypeName="TestTaskForNetDeveloperPositionModel.UrlSiteMap">
+              <MappingFragment StoreEntitySet="UrlSiteMap">
+                <ScalarProperty Name="IdSitemap" ColumnName="IdSitemap" />
+                <ScalarProperty Name="ArchiveOfRequestsId" ColumnName="ArchiveOfRequestsId" />
+                <ScalarProperty Name="NameSite" ColumnName="NameSite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

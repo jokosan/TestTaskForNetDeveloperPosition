@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TestTaskForNetDeveloperPosition.Models.JoinResultModel>
+
+@{
+    ViewBag.Title = "ArxivDetails";
+}
+<link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+<h2 class="text-center">ArxivDetails</h2>
+<hr />
+<div class="text-center mb-5 mt-5">
+    @if (ViewBag.DateGroup != null)
+    {
+        foreach (var item in ViewBag.DateGroup)
+        {
+            <a class="btn btn-outline-dark" href=@Url.Action("/ArxivDetails", new {date = @item.Key, id = @ViewBag.IdOrder })> @item.Key.ToString("dd.MM.yyyy") </a>
+
+        }
+    }
+
+</div>
+
+<div class="table-responsive">
+    <div class="table-responsive">
+        @(Html
+                       .Grid(Model)
+                       .Build(columns =>
+                       {
+                           columns.Add(model => model.NameSite);
+                           columns.Add(model => model.LastModified);
+                           columns.Add(model => model.StatusCode);
+                           columns.Add(model => model.Elapsed);
+                       })
+                       .UsingFilterMode(GridFilterMode.Excel)
+                       .Empty("No data found")
+                       .Filterable(GridFilterType.Single)
+                       .Sortable()
+                        .Css("table")
+                       .Pageable(pager =>
+                       {
+                           pager.PageSizes = new Dictionary<int, string> { { 10, "10" }, { 25, "25" }, { 50, "50" } };
+                           pager.ShowPageSizes = true;
+                           pager.RowsPerPage = 1;
+                       })
+
+                    )
+    </div>
+</div>
+
+
+<script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+<script>
+    [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+        new MvcGrid(element);
+    });
+</script>

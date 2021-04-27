@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TestTaskForNetDeveloperPosition.Models.JoinResultModel>
+
+@{
+    ViewBag.Title = "UserQueryResult";
+}
+<link href="~/Content/MvcGrid/mvc-grid.css" rel="stylesheet" />
+
+<h2>UserQueryResult</h2>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h5 class="card-title m-b-0">Результат</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <div class="table-responsive">
+                    @(Html
+                       .Grid(Model)
+                       .Build(columns =>
+                       {
+                           columns.Add(model => model.NameSite);
+                           columns.Add(model => model.ElapsedMin);
+                           columns.Add(model => model.ElapsedMax);
+                       })
+                       .UsingFilterMode(GridFilterMode.Excel)
+                       .Empty("No data found")
+                       .Filterable(GridFilterType.Single)
+                       .Sortable()
+                        .Css("table")
+                       .Pageable(pager =>
+                       {
+                           pager.PageSizes = new Dictionary<int, string> { { 10, "10" }, { 25, "25" }, { 50, "50" } };
+                           pager.ShowPageSizes = true;
+                           pager.RowsPerPage = 1;
+                       })
+
+                    )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/MvcGrid/mvc-grid.js"></script>
+<script>
+    [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+        new MvcGrid(element);
+    });
+</script>
+<script src="~/Scripts/MvcGrid/mvc-grid-localizing.js"></script>
