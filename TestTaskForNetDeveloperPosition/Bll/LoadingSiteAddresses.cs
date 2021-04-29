@@ -52,10 +52,8 @@ namespace TestTaskForNetDeveloperPosition.Bll
             }
         }
 
-        public void Loading(string url, int numberOfLinks, int IdUri)
-        {
-            _websiteLoadingSpeed.SpeedPageUploads(_loadingPageUrls.ExtractHref(url, numberOfLinks), IdUri);
-        }
+        public List<string> Loading(string url, int numberOfLinks, int IdUri)
+            => _websiteLoadingSpeed.SpeedPageUploads(_loadingPageUrls.ExtractHref(url, numberOfLinks), IdUri);        
 
         public bool ValidationAddresses(string url)
             => _linkCheck.UrlValidation(_linkCheck.AddressHost(url));

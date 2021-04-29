@@ -10,7 +10,7 @@ namespace TestTaskForNetDeveloperPosition.Bll.Contract
     public interface ILoadingSiteAddresses
     {
         int SaveUserRequest(string url);
-        void Loading(string url, int numberOfLinks, int IdUri);
+        List<string> Loading(string url, int numberOfLinks, int IdUri);
         bool ValidationAddresses(string url);
         IEnumerable<JoinResultModel> GetSitemaps(int id);
         IEnumerable<ArchiveOfRequests> Arxiv();

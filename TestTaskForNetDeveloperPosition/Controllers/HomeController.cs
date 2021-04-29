@@ -31,7 +31,7 @@ namespace TestTaskForNetDeveloperPosition.Controllers
             if (_loadingSite.ValidationAddresses(url) && numberOfLinks != null)
             {
                 int idLink = _loadingSite.SaveUserRequest(url);
-                _loadingSite.Loading(url, numberOfLinks.Value, idLink);
+                TempData["listError"] = _loadingSite.Loading(url, numberOfLinks.Value, idLink);
 
                 return RedirectToAction("UserQueryResult", "Home", new RouteValueDictionary(new
                 {
@@ -50,6 +50,12 @@ namespace TestTaskForNetDeveloperPosition.Controllers
             if (id == null)
             {
                 return RedirectToAction("Index");
+            }
+
+            if (TempData.ContainsKey("listError"))
+            {
+                ViewBag.Error = TempData["listError"] as List<string>;
+                TempData.Keep("listError");
             }
 
             return View(_loadingSite.GetSitemaps(id.Value));

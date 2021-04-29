@@ -8,6 +8,6 @@ namespace TestTaskForNetDeveloperPosition.Bll.Contract
 {
     public interface IWebsiteLoadingSpeed
     {
-        void SpeedPageUploads(List<string> url, int idUrl);
+        List<string> SpeedPageUploads(List<string> url, int idUrl);
     }
 }

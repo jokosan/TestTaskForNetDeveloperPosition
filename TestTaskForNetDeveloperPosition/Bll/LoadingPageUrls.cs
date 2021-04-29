@@ -88,7 +88,6 @@ namespace TestTaskForNetDeveloperPosition.Bll
                             urlList.Add(url + item.TrimStart(new char[] { '/' }));
                         }
                     }
-
                 }
 
                 return urlList.OrderBy(x => x.Length).ToList();

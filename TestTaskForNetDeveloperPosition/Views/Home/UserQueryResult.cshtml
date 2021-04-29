@@ -45,6 +45,32 @@
                     )
                 </div>
             </div>
+
+            <div>
+                @if (ViewBag.Error != null && ViewBag.Error.Count != 0)
+                {
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    incorrect url
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Error)
+                            {
+                                <tr>
+                                    <td>
+                                        @item
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+
         </div>
     </div>
 </div>
