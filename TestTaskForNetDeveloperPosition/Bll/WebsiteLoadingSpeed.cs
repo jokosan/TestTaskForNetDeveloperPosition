@@ -14,11 +14,14 @@ namespace TestTaskForNetDeveloperPosition.Bll
     public class WebsiteLoadingSpeed : IWebsiteLoadingSpeed
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILinkCheck _linkCheck;
 
         public WebsiteLoadingSpeed(
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            ILinkCheck linkCheck)
         {
             _unitOfWork = unitOfWork;
+            _linkCheck = linkCheck;
         }
 
         public List<string> SpeedPageUploads(List<string> url, int IdUrl)
@@ -32,49 +35,53 @@ namespace TestTaskForNetDeveloperPosition.Bll
             {
                 try
                 {
-                    Stopwatch sw = new Stopwatch();
-                    HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(item);
-
-                    req.Method = WebRequestMethods.Http.Get;
-                    req.AllowAutoRedirect = false;
-                    req.Accept = @"*/*";
-
-                    sw.Start();
-                    HttpWebResponse res = (HttpWebResponse)req.GetResponse();
-                    var rescode = (int)res.StatusCode;
-                    sw.Stop();
-                    res.Close();
-
-                    TimeSpan timeToLoad = sw.Elapsed;
-
-                    if (sitmapResult.Any(x => x.NameSite.Contains(item)))
+                    if (_linkCheck.UrlValidation(item))
                     {
-                        pageInfo.SitemapId = SaveTableSiteMap(sitmapResult, item);
+                        Stopwatch sw = new Stopwatch();
+                        HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(item);
+
+                        req.Method = WebRequestMethods.Http.Get;
+                        req.AllowAutoRedirect = false;
+                        req.Accept = @"*/*";
+
+                        sw.Start();
+                        HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+                        var rescode = (int)res.StatusCode;
+                        sw.Stop();
+                        res.Close();
+
+                        TimeSpan timeToLoad = sw.Elapsed;
+
+                        if (sitmapResult.Any(x => x.NameSite.Contains(item)))
+                        {
+                            pageInfo.SitemapId = SaveTableSiteMap(sitmapResult, item);
+                        }
+                        else
+                        {
+                            sitemap.ArchiveOfRequestsId = IdUrl;
+                            sitemap.NameSite = item;
+                            pageInfo.SitemapId = SaveSitemap(sitemap);
+                        }
+
+                        pageInfo.WebsiteLoadingSpeed = sw.ElapsedTicks;
+                        pageInfo.StatusCode = rescode;
+                        pageInfo.PageTestDate = DateTime.Now;
+                        pageInfo.LastModified = res.LastModified;
+                        pageInfo.Elapsed = sw.Elapsed;
+
+                        _unitOfWork.PageInfoUnitOFWork.Insert(pageInfo);
+                        _unitOfWork.Save();
                     }
                     else
                     {
-                        sitemap.ArchiveOfRequestsId = IdUrl;
-                        sitemap.NameSite = item;
-                        pageInfo.SitemapId = SaveSitemap(sitemap);
+                        listWebExceptionResponse.Add($"URI Invalid {item}");
                     }
-
-                    pageInfo.WebsiteLoadingSpeed = sw.ElapsedTicks;
-                    pageInfo.StatusCode = rescode;
-                    pageInfo.PageTestDate = DateTime.Now;
-                    pageInfo.LastModified = res.LastModified;
-                    pageInfo.Elapsed = sw.Elapsed;
-
-                    _unitOfWork.PageInfoUnitOFWork.Insert(pageInfo);
-                    _unitOfWork.Save();
+                    
                 }
                 catch (WebException ex)
                 {
                     if (ex.Response == null)
                     {
-                        // если делать правильно я бы поставил Nlog и ошибки записывал в бд или в файл 
-                        // хотя и пользователю есть смысл вывести такого рода исключения при условии, что битая ссылка непосредственно находится на сайте
-                        // были ещё идеи такие как проверка домена с помощью регулярных выражений, но отказался 
-                                                
                         listWebExceptionResponse.Add(ex.Message);
                     }
                     else
